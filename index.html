@@ -1,0 +1,231 @@
+<html>
+<!--
+    ui user interface  harmonia masi bonito
+    ux  experrience quao facil e de mexer no app 
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/1423b757fc.js" crossorigin="anonymous"></script>
+
+    <title>Astronoapp</title>
+    <style>
+        * {
+            --borda: 1px solid #666;
+            --quinas: 10px;
+        }
+
+        #HeaderTitle {
+            position: fixed;
+            width: 100%;
+            height: 58px;
+            left: 0px;
+            top: 0px;
+            background: #43617C;
+        }
+
+        #HeaderOptions {
+            background: #2f465a;
+            position: fixed;
+            width: 121px;
+            height: 417px;
+            left: 0px;
+            top: 58px;
+            border-bottom-right-radius: 25px;
+        }
+
+        i {
+            position: absolute;
+        }
+
+        h2 {
+            position: absolute;
+            left: 18px;
+            top: 0px;
+            margin-top: 14px;
+            margin-bottom: 14px;
+            color: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            padding: 50px 16%;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            transition: 0.5s;
+            border: var(--borda);
+            width: 100px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 700;
+        }
+
+        button:hover {
+            background: black;
+            color: white;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border: var(--borda);
+            margin-top: 10px;
+            border-radius: var(--quinas);
+            padding-top: 10px;
+        }
+
+        fieldset {
+            border: var(--borda);
+        }
+
+        fieldset,
+        button {
+            border-radius: var(--quinas);
+        }
+
+        td {
+            text-align: center;
+        }
+
+        tbody tr:hover {
+            background-color: #f9f9f9;
+            cursor: default;
+        }
+    </style>
+</head>
+
+<body>
+    <header id="HeaderTitle">
+        <h2 id="titulo">Astronoapp</h2>
+    </header>
+    <header id="HeaderOptions">
+        <i class="fa-solid fa-earth-americas"></i> <!--Menu home-->
+        <i class="fa-solid fa-earth-americas"></i> <!--menu de cadastro de astros-->
+        <i class="fa-solid fa-earth-americas"></i> <!--Visualizar cadastros-->
+
+    </header>
+
+    <button id="noite">Modo noturno</button>
+    <button id="dia">Modo diurno</button>
+
+    <fieldset>
+        <legend>Cadastro</legend>
+        <label>Nome do astro:</label>
+        <input type="text" id="nomeAstro" />
+
+        <label>Nome sistema solar:</label>
+        <input type="text" id="nomeSistema" />
+
+        <label>Latitude universal:</label>
+        <input type="number" id="latitude" />
+
+        <label>Longitude universal:</label>
+        <input type="number" id="longitude" />
+        <label>Magnetude:</label>
+        <input type="number" id='magnetude' />
+
+        <button id="cadastrar">Cadastrar</button>
+        <button id="limpar">Limpar Formulario</button>
+
+    </fieldset>
+
+    <table>
+        <thead>
+            <tr>
+                <th> Nome do astro</th>
+                <th> Nome do sistema solar</th>
+                <th> Latitude universal </th>
+                <th>Longitude universal</th>
+                <th>Magnetude</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <script>
+        let btnCadastro = document.getElementById("cadastrar");
+        let btnLimpar = document.getElementById("limpar");
+        let noturno = document.getElementById("noite");
+        let diurno = document.getElementById("dia");
+
+        noturno.addEventListener('click', night);
+        diurno.addEventListener('click', day);
+        btnCadastro.addEventListener('click', cadastro);
+        btnLimpar.addEventListener('click', limpar);
+
+        function pegarInputs() {
+            let inputs = document.getElementsByTagName("input");
+
+            return {
+                nomeAstro: inputs[0],
+                nomeSistema: inputs[1],
+                latitude: inputs[2],
+                longitude: inputs[3],
+                magnetude: inputs[4]
+            }
+        }
+        function limpar() {
+            let inputs = pegarInputs();
+
+            inputs.nomeAstro.value = "";
+            inputs.nomeSistema.value = "";
+            inputs.latitude.value = "";
+            inputs.longitude.value = "";
+            inputs.magnetude.value = "";
+        }
+        function cadastro() {
+            let inputs = pegarInputs();
+            let nomeAstro = inputs.nomeAstro.value;
+            let nomeSistema = inputs.nomeSistema.value;
+            let latitude = inputs.latitude.value;
+            let longitude = inputs.longitude.value;
+            let magnetude = inputs.magnetude.value;
+
+            let tbody = document.getElementsByTagName("tbody")[0];
+            let linha = document.createElement("tr");
+            let col1 = document.createElement("td");
+            let col2 = document.createElement("td");
+            let col3 = document.createElement("td");
+            let col4 = document.createElement("td");
+            let col5 = document.createElement("td");
+
+            col1.innerHTML = nomeAstro;
+            col2.innerHTML = nomeSistema;
+            col3.innerHTML = latitude;
+            col4.innerHTML = longitude;
+            col5.innerHTML = magnetude;
+
+            linha.appendChild(col1);
+            linha.appendChild(col2);
+            linha.appendChild(col3);
+            linha.appendChild(col4);
+            linha.appendChild(col5);
+
+            tbody.appendChild(linha);
+            //adiciona a coluna na linha e depois a linha na tabela
+            alert("Astro cadastrado com sucesso no servido universal");
+        }
+        function night() {
+            document.bgColor = 'black';
+            document.fgColor = 'white';
+        }
+        function day() {
+            document.bgColor = 'white';
+            document.fgColor = 'black';
+        }
+    </script>
+
+</body>
+
+</html>
